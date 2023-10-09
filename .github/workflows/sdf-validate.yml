@@ -19,4 +19,4 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v3
         with: 
-           node-version: 'lts/18'
+           node-version: 'lts/v18'
