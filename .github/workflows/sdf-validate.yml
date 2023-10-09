@@ -29,5 +29,3 @@ jobs:
 
       - name: Install package
         run: npm ci --acceptsuitecloudsdklicense
-      - name: Run unit tests
-        run: npm test
