@@ -8,9 +8,6 @@ beforeEach(() => {
 	jest.clearAllMocks();
 });
 
-
-*********** COMMIT YOUR ENTIRE SDF PROJECT TO THE GITHUB "Main" Branch
-
 describe('Basic jest test with simple assert', () => {
 	it('should assert strings are equal', () => {
 		const a = 'foobar';
