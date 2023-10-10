@@ -1,0 +1,25 @@
+{
+
+  "name": "actions-sdf",
+
+  "version": "0.1.0",
+
+  "scripts": {
+
+    "test": "jest"
+
+  },
+
+  "devDependencies": {
+
+    "jest": "^29",
+
+    "@types/jest": "^29",
+
+    "@oracle/suitecloud-unit-testing": "^1",
+
+    "@oracle/suitecloud-cli": "^1"
+
+  }
+
+}
