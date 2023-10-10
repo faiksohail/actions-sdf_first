@@ -10,20 +10,10 @@ beforeEach(() => {
 
 describe('Basic jest test with simple assert', () => {
 	it('should assert strings are equal', () => {
-
-  const a = 'foobar';
-
-  const b = 'foobar';
-
-  // comment this line:
-
-  // expect(a).toMatch(b);
-
-  // and add this line:
-
-  expect(true).toBeFalsy();
-
-  });
+		const a = 'foobar';
+		const b = 'foobar';
+		expect(a).toMatch(b);
+	});
 });
 
 describe('Sample test with provided record module stubs', () => {
