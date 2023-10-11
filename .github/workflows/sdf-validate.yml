@@ -36,6 +36,6 @@ jobs:
         run: npm test
 
       - name: Authenticate project for ${{ vars.NS_ACCOUNT_ID }}
-        run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
+        run: ./node_modules/.bin/suitecloud account:savetoken --account 5393718_SB2 --authid 5393718_SB2 --tokenid 818edbad4b33eda9be1546fbc735e7a3bc34efb1d9d2aa06504a0f95ff486e9c --tokensecret bb441a1d87efd2daaa8dce0bf7af98eec999063e8435c729781dc7aa50ce76b7
 
         
