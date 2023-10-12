@@ -1,20 +1,8 @@
-name: SDF Validation
-
-run-name: validate
-
-on:
-
-  push:
-
-    branches: [main]
-
-jobs:
-
- unit-test:
+unit-test:
 
     runs-on: ubuntu-latest
 
-    environment: production
+    environment: SandBox
 
     steps:
 
@@ -48,7 +36,7 @@ jobs:
 
         run: npm test
 
- sdf-validate:
+  sdf-validate:
 
     runs-on: ubuntu-latest
     
@@ -83,16 +71,15 @@ jobs:
       - name: Validate project
         run: npm run validate
         
-sdf-deploy:
+  sdf-deploy:
 
     runs-on: ubuntu-latest
-
-    environment: production
-
+      
+    environment: SandBox
+      
     steps:
-
+      
       - name: Check out repository code
-
         uses: actions/checkout@v3
 
       - name: Install node
@@ -124,5 +111,4 @@ sdf-deploy:
       - name: Deploy project to ${{ vars.NS_ACCOUNT_ID }}
 
         run: npm run deploy
-
-‍
+        
