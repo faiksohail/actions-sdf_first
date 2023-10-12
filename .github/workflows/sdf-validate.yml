@@ -1,4 +1,16 @@
-unit-test:
+name: SDF Validation
+
+run-name: validate
+
+on:
+
+  push:
+
+    branches: [main]
+
+jobs:
+
+ unit-test:
 
     runs-on: ubuntu-latest
 
@@ -35,6 +47,41 @@ unit-test:
       - name: Run unit tests
 
         run: npm test
+
+ sdf-validate:
+
+    runs-on: ubuntu-latest
+    
+    environment: SandBox
+    
+    steps:
+
+      - name: Check out repository code
+
+        uses: actions/checkout@v3
+        
+      - name: Install node
+        uses: actions/setup-node@v3
+        with: 
+           node-version: 18
+          
+      - name: Install JDK
+        uses: actions/setup-java@v3
+        with:
+         java-version: '17'
+         distribution: 'oracle'
+
+      - name: Install package
+        run: npm ci --acceptsuitecloudsdklicense
+         
+      - name: Run unit tests
+        run: npm test
+
+      - name: Authenticate project against ${{ vars.NS_ACCOUNT_ID }}
+        run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
+
+      - name: Validate project
+        run: npm run validate
         
 sdf-deploy:
 
@@ -77,47 +124,5 @@ sdf-deploy:
       - name: Deploy project to ${{ vars.NS_ACCOUNT_ID }}
 
         run: npm run deploy
-    
-sdf-validate:
-
-    runs-on: ubuntu-latest
-
-    environment: production
-
-    steps:
-
-      - name: Check out repository code
-
-        uses: actions/checkout@v3
-
-      - name: Install node
-
-        uses: actions/setup-node@v3
-
-        with:
-
-          node-version: 'lts/*'
-
-      - name: Install JDK
-
-        uses: actions/setup-java@v3
-
-        with:
-
-          java-version: '17'
-
-          distribution: 'oracle'
-
-      - name: Install package
-
-        run: npm ci --acceptsuitecloudsdklicense
-
-      - name: Authenticate project against ${{ vars.NS_ACCOUNT_ID }}
-
-        run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
-
-      - name: Validate project against ${{ vars.NS_ACCOUNT_ID }}
-
-        run: npm run validate
 
 ‍
