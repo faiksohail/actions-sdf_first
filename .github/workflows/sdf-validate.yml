@@ -1,40 +1,49 @@
-unit-test:
+name: SDF Validation
 
-    runs-on: ubuntu-latest
+run-name: validate
 
-    environment: SandBox
+on:
 
-    steps:
+  push:
 
-      - name: Check out repository code
+    branches: [main]
 
-        uses: actions/checkout@v3
+jobs:
 
-      - name: Install node
+  unit-test:
 
-        uses: actions/setup-node@v3
+  runs-on: ubuntu-latest
 
-        with:
+  environment: SandBox
+   steps:
+
+  - name: Check out repository code
+    uses: actions/checkout@v3
+
+  - name: Install node
+    uses: actions/setup-node@v3
+
+    with:
 
           node-version: 'lts/*'
 
-      - name: Install JDK
+  - name: Install JDK
 
-        uses: actions/setup-java@v3
+    uses: actions/setup-java@v3
 
-        with:
+    with:
 
           java-version: '17'
 
           distribution: 'oracle'
 
-      - name: Install package
+  - name: Install package
 
-        run: npm ci --acceptsuitecloudsdklicense
-
-      - name: Run unit tests
-
-        run: npm test
+    run: npm ci --acceptsuitecloudsdklicense
+ 
+  - name: Run unit tests
+  
+    run: npm test
 
 sdf-validate:
 
@@ -71,7 +80,7 @@ sdf-validate:
       - name: Validate project
         run: npm run validate
         
-  sdf-deploy:
+sdf-deploy:
 
     runs-on: ubuntu-latest
       
