@@ -6,7 +6,8 @@
 
   "scripts": {
 
-    "test": "jest"
+    "test": "jest",
+    
     "validate": "suitecloud project:deploy --dryrun"
   },
 
