@@ -373,7 +373,7 @@ define(['N/search', 'N/format'],
             //sublistChanged: sublistChanged,
             //lineInit: lineInit,
             //validateField: validateField,
-            validateLine: validateLine,
+            //validateLine: validateLine,
             //validateInsert: validateInsert,
             //validateDelete: validateDelete,
             //saveRecord: saveRecord
