@@ -7,7 +7,7 @@
   "scripts": {
 
     "test": "jest"
-
+    "validate": "suitecloud project:deploy --dryrun"
   },
 
   "devDependencies": {
@@ -23,11 +23,3 @@
   }
 
 }
-
-"scripts": {
-
-  "test": "jest",
-
-  "validate": "suitecloud project:deploy --dryrun"
-
-},
