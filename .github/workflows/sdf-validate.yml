@@ -9,7 +9,8 @@ on:
     branches: [main]
 
 jobs:
-unit-test:
+
+ unit-test:
 
     runs-on: ubuntu-latest
 
@@ -47,9 +48,7 @@ unit-test:
 
         run: npm test
 
-‍
-
-sdf-deploy:
+ sdf-deploy:
 
     runs-on: ubuntu-latest
 
@@ -91,9 +90,7 @@ sdf-deploy:
 
         run: npm run deploy
 
-‍
-
-sdf-validate:
+ sdf-validate:
 
     runs-on: ubuntu-latest
 
