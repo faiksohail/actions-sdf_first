@@ -5,12 +5,12 @@
   "version": "0.1.0",
 
   "scripts": {
-
-    "deploy": "suitecloud project:deploy"
     
     "test": "jest",
     
-    "validate": "suitecloud project:deploy --dryrun"
+    "validate": "suitecloud project:deploy --dryrun",
+
+     "deploy": "suitecloud project:deploy"
   },
 
   "devDependencies": {
