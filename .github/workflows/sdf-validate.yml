@@ -80,9 +80,9 @@ sdf-deploy:
 
 sdf-validate:
 
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-    environment:production
+    environment: production
 
     steps:
 
@@ -119,3 +119,8 @@ sdf-validate:
       - name: Validate project against ${{ vars.NS_ACCOUNT_ID }}
 
         run: npm run validate
+
+‍
+
+
+
