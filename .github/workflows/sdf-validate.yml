@@ -77,7 +77,7 @@ sdf-deploy:
       - name: Deploy project to ${{ vars.NS_ACCOUNT_ID }}
 
         run: npm run deploy
-
+    
 sdf-validate:
 
     runs-on: ubuntu-latest
@@ -121,6 +121,3 @@ sdf-validate:
         run: npm run validate
 
 ‍
-
-
-
