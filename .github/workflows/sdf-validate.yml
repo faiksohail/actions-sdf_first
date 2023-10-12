@@ -94,7 +94,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    environment: production
+    environment: SandBox
 
     steps:
 
