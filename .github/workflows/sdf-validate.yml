@@ -36,7 +36,7 @@ unit-test:
 
         run: npm test
 
-  sdf-validate:
+sdf-validate:
 
     runs-on: ubuntu-latest
     
