@@ -9,6 +9,7 @@
  * 1.3			30th May, 2023			Set Original Quantity Ordered on Page Load (only in edit mode) 
  * 2.0			26th July, 2023			pageInit - Carrier/Service Level updates
  * 3.0          4th August, 2023		(validateLine) - To have 855 Rejected Reason required when the Line Item Rejected checkbox is true
+ * 4.0          12 October, 2023         Setup a Automation CI/CD Pipeline between GitHub and NetSuite
  */
 define(['N/search', 'N/format'],
     function(search, format) {
@@ -373,7 +374,7 @@ define(['N/search', 'N/format'],
             //sublistChanged: sublistChanged,
             //lineInit: lineInit,
             //validateField: validateField,
-            //validateLine: validateLine,
+              validateLine: validateLine,
             //validateInsert: validateInsert,
             //validateDelete: validateDelete,
             //saveRecord: saveRecord
