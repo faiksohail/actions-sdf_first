@@ -20,7 +20,7 @@ jobs:
 
        - uses: actions/checkout@v3
 
-       - uses: ./.github/actions/sdf-install
+       - uses: ./.github/actions/sdf-install/action.yml
 
          with:
 
@@ -44,7 +44,7 @@ jobs:
 
       - uses: actions/checkout@v3
  
-      - uses: ./.github/actions/sdf-install
+      - uses: ./.github/actions/sdf-install/action.yml
 
         with:
 
@@ -68,7 +68,7 @@ jobs:
 
        - uses: actions/checkout@v3
 
-       - uses: ./.github/actions/sdf-install
+       - uses: ./.github/actions/sdf-install/action.yml
 
          with:
 
