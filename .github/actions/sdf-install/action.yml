@@ -5,26 +5,8 @@ description: 'Run common installation steps for a NetSuite SDF Project'
 runs:
 
   using: 'composite'
-
-  inputs:
-
-  ns-account-id:
-
-    description: 'The Account ID of the target NetSuite environment'
-
-    required: true
-
-  ns-token-id:
-
-    description: 'The Token ID for authenticating to the target NetSuite environment'
-
-    required: true
-
-  ns-token-secret:
-
-    description: 'The Token Secret for authenticating to the target NetSuite environment'
-
-    required: true
+  - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
 
 steps:
 
