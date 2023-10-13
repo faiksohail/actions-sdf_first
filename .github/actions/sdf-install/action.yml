@@ -14,3 +14,14 @@ runs:
       with:
         java-version: '17'
         distribution: 'oracle'
+    - name: Install package
+
+    run: npm ci --acceptsuitecloudsdklicense
+
+    shell: bash
+
+  - name: Authenticate project against ${{ NS_ACCOUNT_ID}}
+
+    run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ NS_ACCOUNT_ID }} --authid ${{ NS_ACCOUNT_ID }} --tokenid ${{  NS_TOKEN_ID  }} --tokensecret ${{ NS_TOKEN_SECRET }}
+
+    shell: bash
