@@ -1,0 +1,39 @@
+name: 'sdf-install'
+
+description: 'Run common installation steps for a NetSuite SDF Project'
+
+runs:
+
+  using: 'composite'
+
+steps:
+
+  - name: Install node
+
+    uses: actions/setup-node@v3
+
+    with:
+
+      node-version: 'lts/*'
+
+  - name: Install JDK
+
+    uses: actions/setup-java@v3
+
+    with:
+
+      java-version: '17'
+
+      distribution: 'oracle'
+
+  - name: Install package
+
+    run: npm ci --acceptsuitecloudsdklicense
+
+    shell: bash
+
+  - name: Authenticate project against ${{ inputs.ns-account-id }}
+
+    run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ inputs.ns-account-id }} --authid ${{ inputs.ns-account-id }} --tokenid ${{ inputs.ns-token-id }} --tokensecret ${{ inputs.ns-token-secret }}
+
+    shell: bash
