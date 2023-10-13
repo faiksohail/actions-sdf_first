@@ -1,48 +1,35 @@
-name: 'NetSuite SDF Project Installation'
-
-description: 'Run common installation steps for a NetSuite SDF Project'
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  install-sdf:
-    runs-on: ubuntu-latest
-
-    inputs:
-      ns-account-id:
-        description: 'The Account ID of the target NetSuite environment'
-        required: true
-      ns-token-id:
-        description: 'The Token ID for authenticating to the target NetSuite environment'
-        required: true
-      ns-token-secret:
-        description: 'The Token Secret for authenticating to the target NetSuite environment'
-        required: true
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: 17
-
-      - name: Install Node.js packages
-        run: npm ci --accept-suitecloud-sdk-license
-        shell: bash
-
-      - name: Authenticate project for Amyris NetSuite
-        run: |
-          ./node_modules/.bin/suitecloud account:savetoken \
-            --tokenid ${{ inputs.ns-token-id }} \
-            --tokensecret ${{ inputs.ns-token-secret }}
-        shell: bash
+name: 'NetSuite SDF Project Setup'
+description: 'Run common setup steps for a NetSuite SDF Project'
+inputs:
+  ns-account-id:
+    description: 'The Account ID of the target NetSuite environment'
+    required: true
+  ns-token-id:
+    description: 'The Token ID for authenticating to the target NetSuite environment'
+    required: true
+  ns-token-secret:
+    description: 'The Token Secret for authenticating to the target NetSuite environment'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+    - name: Install JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 17
+        distribution: 'adopt'
+    - name: Install Project Dependencies
+      run: npm ci --accept-suitecloudsdklicense
+      shell: bash
+    - name: Authenticate Project
+      run: |
+        ./node_modules/.bin/suitecloud account:savetoken \
+          --account ${{ inputs.ns-account-id }} \
+          --authid ${{ inputs.ns-account-id }} \
+          --tokenid ${{ inputs.ns-token-id }} \
+          --tokensecret ${{ inputs.ns-token-secret }}
+      shell: bash
