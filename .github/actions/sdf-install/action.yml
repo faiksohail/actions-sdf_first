@@ -1,59 +1,50 @@
-name: 'sdf-install'
+name: 'NetSuite SDF Project Installation'
 
 description: 'Run common installation steps for a NetSuite SDF Project'
 
-runs:
+on:
+  push:
+    branches:
+      - main
 
-  using: 'composite'
+jobs:
+  install-sdf:
+    runs-on: ubuntu-latest
 
-  inputs:
+    inputs:
+      ns-account-id:
+        description: 'The Account ID of the target NetSuite environment'
+        required: true
+      ns-token-id:
+        description: 'The Token ID for authenticating to the target NetSuite environment'
+        required: true
+      ns-token-secret:
+        description: 'The Token Secret for authenticating to the target NetSuite environment'
+        required: true
 
-  ns-account-id:
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    description: 'The Account ID of the target NetSuite environment'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
 
-    required: true
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
 
-  ns-token-id:
+      - name: Install Node.js packages
+        run: npm ci --accept-suitecloud-sdk-license
+        shell: bash
 
-    description: 'The Token ID for authenticating to the target NetSuite environment'
-
-    required: true
-
-  ns-token-secret:
-
-    description: 'The Token Secret for authenticating to the target NetSuite environment'
-
-    required: true
-
-steps:
-
-  - name: Install node
-
-    uses: actions/setup-node@v3
-
-    with:
-
-      node-version: 'lts/*'
-
-  - name: Install JDK
-
-    uses: actions/setup-java@v3
-
-    with:
-
-      java-version: '17'
-
-      distribution: 'oracle'
-
-  - name: Install package
-
-    run: npm ci --acceptsuitecloudsdklicense
-
-    shell: bash
-
-  - name: Authenticate project against ${{ inputs.ns-account-id }}
-
-    run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ inputs.ns-account-id }} --authid ${{ inputs.ns-account-id }} --tokenid ${{ inputs.ns-token-id }} --tokensecret ${{ inputs.ns-token-secret }}
-
-    shell: bash
+      - name: Authenticate project against ${{ inputs.ns-account-id }}
+        run: |
+          ./node_modules/.bin/suitecloud account:savetoken \
+            --account ${{ inputs.ns-account-id }} \
+            --authid ${{ inputs.ns-account-id }} \
+            --tokenid ${{ inputs.ns-token-id }} \
+            --tokensecret ${{ inputs.ns-token-secret }}
+        shell: bash
