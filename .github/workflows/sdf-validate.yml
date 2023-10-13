@@ -16,118 +16,68 @@ jobs:
 
     environment: SandBox
 
-    steps:
+steps:
 
-      - name: Check out repository code
+  - uses: actions/checkout@v3
 
-        uses: actions/checkout@v3
+  - uses: ./.github/actions/sdf-install
 
-      - name: Install node
+    with:
 
-        uses: actions/setup-node@v3
+      ns-account-id: ${{ vars.NS_ACCOUNT_ID }}
 
-        with:
+      ns-token-id: ${{ secrets.NS_TOKEN_ID }}
 
-          node-version: '18'
+      ns-token-secret: ${{ secrets.NS_TOKEN_SECRET }}
 
-      - name: Install JDK
+  - name: Run unit tests
 
-        uses: actions/setup-java@v3
+    run: npm test
 
-        with:
+sdf-deploy:
 
-          java-version: '17'
+     runs-on: ubuntu-latest
 
-          distribution: 'oracle'
+     environment: SandBox
 
-      - name: Install package
+     steps:
 
-        run: npm ci --acceptsuitecloudsdklicense
+     - uses: actions/checkout@v3
 
-      - name: Run unit tests
+     - uses: ./.github/actions/sdf-install
 
-        run: npm test
+       with:
 
- sdf-deploy:
+        ns-account-id: ${{ vars.NS_ACCOUNT_ID }}
+ 
+        ns-token-id: ${{ secrets.NS_TOKEN_ID }}
 
-    runs-on: ubuntu-latest
+        ns-token-secret: ${{ secrets.NS_TOKEN_SECRET }}
+      
+     - name: Deploy project to ${{ vars.NS_ACCOUNT_ID }}
 
-    environment: SandBox
+       run: npm run deploy
 
-    steps:
+sdf-validate:
 
-      - name: Check out repository code
+       runs-on: ubuntu-latest
 
-        uses: actions/checkout@v3
+       environment: SandBox
 
-      - name: Install node
+       steps:
 
-        uses: actions/setup-node@v3
+       - uses: actions/checkout@v3
 
-        with:
+       - uses: ./.github/actions/sdf-install
 
-          node-version: '18'
+         with:
 
-      - name: Install JDK
+         ns-account-id: ${{ vars.NS_ACCOUNT_ID }}
 
-        uses: actions/setup-java@v3
+         ns-token-id: ${{ secrets.NS_TOKEN_ID }}
 
-        with:
+         ns-token-secret: ${{ secrets.NS_TOKEN_SECRET }}
+      
+       - name: Validate project against ${{ vars.NS_ACCOUNT_ID }}
 
-          java-version: '17'
-
-          distribution: 'oracle'
-
-      - name: Install package
-
-        run: npm ci --acceptsuitecloudsdklicense
-
-      - name: Authenticate project against ${{ vars.NS_ACCOUNT_ID }}
-
-        run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
-
-      - name: Deploy project to ${{ vars.NS_ACCOUNT_ID }}
-
-        run: npm run deploy
-
- sdf-validate:
-
-    runs-on: ubuntu-latest
-
-    environment: SandBox
-
-    steps:
-
-      - name: Check out repository code
-
-        uses: actions/checkout@v3
-
-      - name: Install node
-
-        uses: actions/setup-node@v3
-
-        with:
-
-          node-version: '18'
-
-      - name: Install JDK
-
-        uses: actions/setup-java@v3
-
-        with:
-
-          java-version: '17'
-
-          distribution: 'oracle'
-
-      - name: Install package
-
-        run: npm ci --acceptsuitecloudsdklicense
-
-      - name: Authenticate project for ${{ vars.NS_ACCOUNT_ID }}
-
-        run: ./node_modules/.bin/suitecloud account:savetoken --account ${{ vars.NS_ACCOUNT_ID }} --authid ${{ vars.NS_ACCOUNT_ID }} --tokenid ${{ secrets.NS_TOKEN_ID }} --tokensecret ${{ secrets.NS_TOKEN_SECRET }}
-
-      - name: Validate project against ${{ vars.NS_ACCOUNT_ID }}
-
-        run: npm run validate
+       run: npm run validate
