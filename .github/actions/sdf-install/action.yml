@@ -40,11 +40,9 @@ jobs:
         run: npm ci --accept-suitecloud-sdk-license
         shell: bash
 
-      - name: Authenticate project against ${{ inputs.ns-account-id }}
+      - name: Authenticate project for Amyris NetSuite
         run: |
           ./node_modules/.bin/suitecloud account:savetoken \
-            --account ${{ inputs.ns-account-id }} \
-            --authid ${{ inputs.ns-account-id }} \
             --tokenid ${{ inputs.ns-token-id }} \
             --tokensecret ${{ inputs.ns-token-secret }}
         shell: bash
