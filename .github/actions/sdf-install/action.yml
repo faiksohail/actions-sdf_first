@@ -25,7 +25,7 @@ runs:
     
     - name: Install package
       run: npm ci --acceptsuitecloudsdklicense
-
-    - name: Authenticate project for ${{ vars.NS_ACCOUNT_ID }}
+      shell: bash
+    - name: Authenticate project
       run: ./node_modules/.bin/suitecloud account:savetoken \--account ${{ inputs.ns-account-id }} \--authid ${{ inputs.ns-account-id }} \--tokenid ${{ inputs.ns-token-id }} \--tokensecret ${{ inputs.ns-token-secret }}
-      
+      shell: bash
