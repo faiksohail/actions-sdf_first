@@ -22,14 +22,10 @@ runs:
       with:
         java-version: 17
         distribution: 'adopt'
-    - name: Install Project Dependencies
-      run: npm ci --accept-suitecloudsdklicense
-      shell: bash
-    - name: Authenticate Project
-      run: 
-        ./node_modules/.bin/suitecloud account:savetoken \
-          --account ${{ inputs.ns-account-id }} \
-          --authid ${{ inputs.ns-account-id }} \
-          --tokenid ${{ inputs.ns-token-id }} \
-          --tokensecret ${{ inputs.ns-token-secret }}
-      shell: bash
+    
+    - name: Install package
+      run: npm ci --acceptsuitecloudsdklicense
+
+    - name: Authenticate project for ${{ vars.NS_ACCOUNT_ID }}
+      run: ./node_modules/.bin/suitecloud account:savetoken \--account ${{ inputs.ns-account-id }} \--authid ${{ inputs.ns-account-id }} \--tokenid ${{ inputs.ns-token-id }} \--tokensecret ${{ inputs.ns-token-secret }}
+      
