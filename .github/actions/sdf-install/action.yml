@@ -26,7 +26,7 @@ runs:
       run: npm ci --accept-suitecloudsdklicense
       shell: bash
     - name: Authenticate Project
-      run: |
+      run: 
         ./node_modules/.bin/suitecloud account:savetoken \
           --account ${{ inputs.ns-account-id }} \
           --authid ${{ inputs.ns-account-id }} \
