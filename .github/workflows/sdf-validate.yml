@@ -14,7 +14,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    environment: SandBox
+    environment: ${{ github.ref_name == 'main' && 'production' || 'SandBox' }}
     
     steps: 
 
@@ -38,7 +38,7 @@ jobs:
  
       runs-on: ubuntu-latest
 
-      environment: SandBox
+      environment:  ${{ github.ref_name == 'main' && 'production' || 'SandBox' }}
 
       steps:
 
@@ -62,7 +62,7 @@ jobs:
 
        runs-on: ubuntu-latest
 
-       environment: SandBox
+       environment:  ${{ github.ref_name == 'main' && 'production' || 'SandBox' }}
 
        steps:
 
