@@ -1,4 +1,4 @@
-name: SDF Validation
+name: SDF Validation Using GitHub Actions
 
 run-name: validate
 
